@@ -4,6 +4,7 @@ from .models import Post, Author, Tag
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('title',)}
     list_display = ('title', 'date')
+    list_filter = ('title', 'date', 'author','tag')
 
 
 

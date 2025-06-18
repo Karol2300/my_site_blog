@@ -2,8 +2,8 @@ from django.shortcuts import render
 from datetime import date
 from .models import Post
 
-all_posts = Post.objects.all().order_by("date")
-recent_posts = all_posts[1:]
+all_posts = Post.objects.all().order_by("-date")
+recent_posts = all_posts[:3]
 # Create your views here.
 def get_date(post):
     return post['date']

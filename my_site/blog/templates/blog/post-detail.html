@@ -29,4 +29,20 @@ This post title
     <p>{{ post.content }}</p>
 
 </main>
+<section id="comment-form"></section>
+<h2>Your comment</h2>
+<div >
+    <form>
+    {% for form_field in comment_form %}
+
+    <div class="form-control">
+{{ form_field.label_tag }}
+{{ form_field }}
+{{ form_field.errors }}
+        </div>
+    {% endfor %}
+    <button>Save comment</button>
+</form>
+    </div>
+</section>
 {% endblock %}

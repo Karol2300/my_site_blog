@@ -2,6 +2,7 @@ from django.shortcuts import render
 from datetime import date
 from .models import Post
 from django.views.generic import ListView, DetailView
+from .forms import CommentForm
 
 all_posts = Post.objects.all().order_by("-date")
 recent_posts = all_posts[:3]
@@ -10,7 +11,7 @@ def get_date(post):
     return post['date']
 
 
-class StrtingPageView(ListView):
+class StartingPageView(ListView):
     template_name = "blog/index.html"
     model = Post
     ordering = ["-date"]
@@ -49,7 +50,8 @@ class PostDetail(DetailView):
     model = Post
     context_object_name = "post"
 
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     data = queryset.get(self.slug_field)
-    #     return data
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comment_form"] = CommentForm()
+        return context

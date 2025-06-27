@@ -13,6 +13,12 @@ This post title
 {% endblock %}
 
 {% block content %}
+{% if comment_form.errors %}
+<div>
+    <h2> Error! Please check the comment form </h2>
+</div>
+
+{% endif %}
 <section id="summary">
 <h2>{{ post.title }}</h2>
     <article>
@@ -25,17 +31,31 @@ This post title
 
 </section>
 
+
+
+
 <main>
     <p>{{ post.content }}</p>
 
 </main>
+
+<section id="comment">
+{% for comment in comments %}
+<li>
+    {{ comment.username }}
+    {{ comment.text }}
+</li>
+{% endfor %}
+
+</section>
 <section id="comment-form"></section>
 <h2>Your comment</h2>
 <div >
-    <form>
+    <form action="{% url "post-detail-page" post.slug %}" method="POST">
+        {% csrf_token %}
     {% for form_field in comment_form %}
 
-    <div class="form-control">
+    <div class="form-control {% if form_field.errors %} invalid {% endif %}">
 {{ form_field.label_tag }}
 {{ form_field }}
 {{ form_field.errors }}

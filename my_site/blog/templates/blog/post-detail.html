@@ -27,6 +27,20 @@ This post title
         <div>
             Last updated on <time>{{post.date|date:"d M y"}}</time>
         </div>
+        <form action="{% url "read-later" %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{ post.id }}" name="post_id">
+        <div id="read-later">
+
+            </form>
+
+            <button>{% if is_saved_for_later %}
+                Remove from "read later list"
+                {% else %}
+                Read later
+                {% endif %}
+            </button>
+        </div>
     </article>
 
 </section>
